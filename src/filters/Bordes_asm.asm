@@ -53,7 +53,7 @@ Bordes_asm:
     ; r11 = puntero a la fila siguiente
     
     ; xmm0 va a ser un registro de ceros
-
+    ; ¡lo inicializo fuera del loop!
     pxor xmm0, xmm0
 
     ; recorro la imagen
@@ -72,7 +72,7 @@ Bordes_asm:
         movq xmm3, [r10 + 1]  ; ↗
 
         movq xmm4, [rdi - 1]  ; ←
-        ;movq xmm5, [rdi]      ; ⋅   
+        ;movq xmm5, [rdi]      ; ⋅        ;al pedo
         movq xmm6, [rdi + 1]  ; →
 
         movq xmm7, [r11 - 1]  ; ↙
@@ -161,7 +161,7 @@ Bordes_asm:
         movq xmm3, [r10 + 1]  ; ↗
 
         movq xmm4, [rdi - 1]  ; ←
-        ;movq xmm5, [rdi]      ; ⋅  
+        ;movq xmm5, [rdi]      ; ⋅        ;al pedo
         movq xmm6, [rdi + 1]  ; →
 
         movq xmm7, [r11 - 1]  ; ↙

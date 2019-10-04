@@ -40,21 +40,19 @@ Nivel_asm:
 	mov eax, 16
 	mul r10d
 	mov eax, eax
-	movdqa xmm0, [mask0 + rax] 	; xmm0 = mascara 
+	movdqa xmm14, [mask0 + rax] 	; xmm0 = mascara 
 	movdqa xmm15, [maskTransp]
 
 	.ciclo:
 		cmp r13, 0
 		je .fin
-		movdqu xmm1, [rdi] 		; levantamos 4 pixeles
-		movdqu xmm2, xmm1  
-		pand xmm2, xmm0 		; xmm2 = resultado del and
-
-		pcmpeqb xmm2,xmm0 		; xmm2 = resultado de la comparacion
+		movdqu xmm1, [rdi] 		; levantamos 4 pixeles  
+		movdqu xmm2,xmm15
+		movdqu xmm0,xmm14
 		
-		por xmm2, xmm15  		; transparencia en ff
-
-		movdqu [rsi],xmm2		; pegar en dst
+		call cuentas 
+		
+		movdqu [rsi],xmm0		; pegar en dst
 
 		add rdi, 16
 		add rsi, 16 
@@ -63,4 +61,22 @@ Nivel_asm:
 	.fin:
 	pop r13
 	pop rbp
+	ret
+
+
+cuentas:
+	;xmm0 = mascara
+	;xmm1 = data
+	;xmm2 = transparencia
+
+	push rbp
+	mov rbp,rsp
+
+	pand xmm1,xmm0
+	pcmpeqb xmm1,xmm0
+	por xmm1, xmm2
+
+	movdqu xmm0,xmm1
+
+	pop rbp 
 	ret

@@ -8,26 +8,23 @@ from pylab import plot, show, savefig, xlim, figure, \
 # function for setting the colors of the box plots pairs
 def setBoxColors(bp):
     setp(bp['boxes'][0], color='blue')
-    setp(bp['boxes'][1], color='red')
-
     setp(bp['caps'][0], color='blue')
-    setp(bp['caps'][1], color='red')
-    setp(bp['caps'][2], color='green')
-    setp(bp['caps'][3], color='yellow')
-    setp(bp['caps'][4], color='')
-
+    setp(bp['caps'][1], color='blue')
     setp(bp['whiskers'][0], color='blue')
     setp(bp['whiskers'][1], color='blue')
-    setp(bp['whiskers'][2], color='red')
-    setp(bp['whiskers'][3], color='red')
-
     # setp(bp['fliers'][0], color='blue')
     # setp(bp['fliers'][1], color='blue')
     setp(bp['medians'][0], color='blue')
-    setp(bp['medians'][1], color='red')
 
+    setp(bp['boxes'][1], color='red')
+    setp(bp['caps'][2], color='red')
+    setp(bp['caps'][3], color='red')
+    setp(bp['whiskers'][2], color='red')
+    setp(bp['whiskers'][3], color='red')
     # setp(bp['fliers'][2], color='red')
     # setp(bp['fliers'][3], color='red')
+    setp(bp['medians'][1], color='red')
+
 
 
 def myBoxplots(names, data):
@@ -46,16 +43,20 @@ def myBoxplots(names, data):
   # ma = float(max(whiskers))
   # mi = float(min(whiskers))
 
-  ylim(top=bp['caps'][1].get_ydata()[0] + 10000, bottom=bp['caps'][0].get_ydata()[0] - 10000)
+  ylim(top=bp['caps'][1].get_ydata()[0] + 1000, bottom=bp['caps'][0].get_ydata()[0] - 1000)
 
   # draw temporary red and blue lines and use them to create a legend
   hB, = plot([1,1],'b-')
   hR, = plot([1,1],'r-')
-  legend((hB, hR),tuple(names))
+  hG, = plot([1,1],'black')
+  hY, = plot([1,1],'black')
+  hJ, = plot([1,1],'black')
+
+  legend((hB, hR,hG,hY,hJ),list(names))
   hB.set_visible(False)
   hR.set_visible(False)
 
-  xlabel('Implementaciones')
+  xlabel('Implementacion')
 
   savefig('boxplot.png')
   show()
