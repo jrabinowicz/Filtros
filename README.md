@@ -1,4 +1,4 @@
-La carpeta doc no fue modificada de la original.
+La carpeta doc no fue modificada de la original. \n
 En la carpeta src, modificamos tp2.c y tp2.h para poder imprimir por consola cuánto tarda en ciclos de clock cada una de las ejecuciones del
 filtro y la varianza, ya sea como una lista (es decir, separados por coma) o cada resultado en renglón distinto. Estas opciones estan comentadas
 dejando el tp2.c como el original para que se puedan correr los tests. 
