@@ -35,10 +35,10 @@ int main( int argc, char** argv ) {
     
     // Imprimo info
     if (!config.nombre) {
-        // printf ( "Procesando...\n");
-        // printf ( "  Filtro             : %s\n", config.nombre_filtro);
-        // printf ( "  Implementación     : %s\n", C_ASM( (&config) ) );
-        // printf ( "  Archivo de entrada : %s\n", config.archivo_entrada);
+        printf ( "Procesando...\n");
+        printf ( "  Filtro             : %s\n", config.nombre_filtro);
+        printf ( "  Implementación     : %s\n", C_ASM( (&config) ) );
+        printf ( "  Archivo de entrada : %s\n", config.archivo_entrada);
     }
 
     snprintf(config.archivo_salida, sizeof  (config.archivo_salida), "%s/%s.%s.%s%s.bmp",
@@ -46,7 +46,7 @@ int main( int argc, char** argv ) {
             config.nombre_filtro,  C_ASM( (&config) ), config.extra_archivo_salida );
 
     if (config.nombre) {
-        //printf("%s\n", basename(config.archivo_salida));
+        printf("%s\n", basename(config.archivo_salida));
         return 0;
     }
 
@@ -69,24 +69,29 @@ filtro_t* detectar_filtro(configuracion_t *config) {
 }
 
 void imprimir_tiempos_ejecucion(float *ciclos_de_cada, float varianza, unsigned long long int start, unsigned long long int end, int cant_iteraciones) {
-    // unsigned long long int cant_ciclos = end-start;
+    unsigned long long int cant_ciclos = end-start;
 
-    // printf("Tiempo de ejecución:\n");
-    // printf("  Comienzo                          : %llu\n", start);
-    // printf("  Fin                               : %llu\n", end);
-    // printf("  # iteraciones                     : %d\n", cant_iteraciones);
+    printf("Tiempo de ejecución:\n");
+    printf("  Comienzo                          : %llu\n", start);
+    printf("  Fin                               : %llu\n", end);
+    printf("  # iteraciones                     : %d\n", cant_iteraciones);
+    
+    ///// PRINTEAR LO QUE TARDA CADA ITERACION EN CICLO DE CLOCKS, RENGLON POR RENGLON
     // for (int i = 0; i < (float)cant_iteraciones; ++i){
     // 	printf("# ciclos del llamado %i 	: %.3f\n", (i + 1), ciclos_de_cada[i]);
     // }
-    // printf("  promedio de ciclos por llamada	: %.3f\n", (float)cant_ciclos/(float)cant_iteraciones);
+
+    printf("  promedio de ciclos por llamada	: %.3f\n", (float)cant_ciclos/(float)cant_iteraciones);
     // printf("  varianza de ciclos por llamada	: %.3f\n", varianza);
-    // printf("  # de ciclos insumidos totales     : %llu\n", cant_ciclos);
-    for (int i = 0; i < (float)cant_iteraciones; ++i){
-        printf("%.3f,", ciclos_de_cada[i]);
-        if (i == ((float)cant_iteraciones) - 1){
-            printf("%.3f", ciclos_de_cada[i]);
-        }
-    }
+    printf("  # de ciclos insumidos totales     : %llu\n", cant_ciclos);
+    
+    /////PRINTEAR LO QUE TARDA CADA ITERACION EN CICLO DE CLOCKS, COMO LISTA
+    // for (int i = 0; i < (float)cant_iteraciones; ++i){
+    //     printf("%.3f,", ciclos_de_cada[i]);
+    //     if (i == ((float)cant_iteraciones) - 1){
+    //         printf("%.3f", ciclos_de_cada[i]);
+    //     }
+    // }
 }
 
 void correr_filtro_imagen(configuracion_t *config, aplicador_fn_t aplicador) {
